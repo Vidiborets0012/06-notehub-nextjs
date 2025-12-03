@@ -3,9 +3,9 @@ import type { Note } from "../../types/note";
 import { deleteNote } from "@/lib/api";
 // import { deleteNote } from "../../services/noteService";
 import toast from "react-hot-toast";
-import Loader from "../common/Loader/Loader";
+// import Loader from "../common/Loader/Loader";
 import EmptyState from "../common/EmptyState/EmptyState";
-import ErrorMessage from "../common/ErrorMessage/ErrorMessage";
+// import ErrorMessage from "../common/ErrorMessage/ErrorMessage";
 
 import css from "./NoteList.module.css";
 
@@ -19,9 +19,9 @@ interface NoteListProps {
 export default function NoteList({
   notes,
   isLoading,
-  isError,
-  error,
-}: NoteListProps) {
+}: // isError,
+// error,
+NoteListProps) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -32,8 +32,8 @@ export default function NoteList({
     },
   });
 
-  if (isLoading) return <Loader />;
-  if (isError) return <ErrorMessage message={error?.message} />;
+  // if (isLoading) return <Loader />;
+  // if (isError) return <ErrorMessage message={error?.message} />;
   if (!notes.length && !isLoading)
     return (
       <EmptyState
