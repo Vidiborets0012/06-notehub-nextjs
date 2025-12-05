@@ -1,13 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Note } from "../../types/note";
 import { deleteNote } from "@/lib/api";
-// import { deleteNote } from "../../services/noteService";
 import toast from "react-hot-toast";
-// import Loader from "../common/Loader/Loader";
 import EmptyState from "../common/EmptyState/EmptyState";
-// import ErrorMessage from "../common/ErrorMessage/ErrorMessage";
 
 import css from "./NoteList.module.css";
+import Link from "next/link";
 
 interface NoteListProps {
   notes: Note[];
@@ -16,12 +14,7 @@ interface NoteListProps {
   error: Error | null;
 }
 
-export default function NoteList({
-  notes,
-  isLoading,
-}: // isError,
-// error,
-NoteListProps) {
+export default function NoteList({ notes, isLoading }: NoteListProps) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -32,8 +25,6 @@ NoteListProps) {
     },
   });
 
-  // if (isLoading) return <Loader />;
-  // if (isError) return <ErrorMessage message={error?.message} />;
   if (!notes.length && !isLoading)
     return (
       <EmptyState
@@ -50,6 +41,9 @@ NoteListProps) {
           <p className={css.content}>{note.content}</p>
           <div className={css.footer}>
             <span className={css.tag}>{note.tag}</span>
+            <Link className={css.link} href={`/notes/${note.id}`}>
+              View details
+            </Link>
             <button
               className={css.button}
               onClick={() => mutation.mutate(note.id)}
