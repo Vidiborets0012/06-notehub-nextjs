@@ -3,9 +3,9 @@ import type { Note } from "../../types/note";
 import { deleteNote } from "@/lib/api";
 import toast from "react-hot-toast";
 import EmptyState from "../common/EmptyState/EmptyState";
+import Link from "next/link";
 
 import css from "./NoteList.module.css";
-import Link from "next/link";
 
 interface NoteListProps {
   notes: Note[];
