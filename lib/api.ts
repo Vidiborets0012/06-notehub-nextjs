@@ -1,13 +1,10 @@
 import axios from "axios";
 import type { CreateNoteData, Note, NoteTag } from "../types/note";
-// import toast from "react-hot-toast";
 
 axios.defaults.baseURL = "https://notehub-public.goit.study/api";
 axios.defaults.headers.common[
   "Authorization"
 ] = `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`;
-
-console.log("TOKEN:", process.env.NEXT_PUBLIC_NOTEHUB_TOKEN);
 
 interface FetchNotesParams {
   search?: string;
@@ -20,6 +17,10 @@ interface FetchNotesParams {
 interface FetchNotesResponse {
   notes: Note[];
   totalPages: number;
+}
+
+export interface FetchNoteByIdResponse {
+  note: Note;
 }
 
 export const fetchNotes = async (
@@ -39,5 +40,12 @@ export const createNote = async (noteData: CreateNoteData): Promise<Note> => {
 
 export const deleteNote = async (id: string): Promise<Note> => {
   const response = await axios.delete(`/notes/${id}`);
+  return response.data;
+};
+
+export const fetchNoteById = async (
+  id: string
+): Promise<FetchNoteByIdResponse> => {
+  const response = await axios.get<FetchNoteByIdResponse>(`/notes/${id}`);
   return response.data;
 };
